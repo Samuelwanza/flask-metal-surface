@@ -155,5 +155,6 @@ pyvenv.cfg
 .venv
 pip-selfcheck.jsonl
 metals_surface_defects_detection_model.h5
+model.h5
 
 # End of https://www.toptal.com/developers/gitignore/api/python
