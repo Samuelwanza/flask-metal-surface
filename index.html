@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Upload</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      #result {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Image Upload</h1>
+    <form enctype="multipart/form-data">
+      <input type="file" id="imageInput" accept="image/*" />
+      <button type="button" onclick="uploadImage()">Upload Image</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+      function uploadImage() {
+        var input = document.getElementById("imageInput");
+        var file = input.files[0];
+
+        if (file) {
+          var formData = new FormData();
+          formData.append("image", file);
+          console.log(file);
+
+          fetch("https://flask-production-f45ca.up.railway.app/predict", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              displayResult(data);
+            })
+            .catch((error) => console.error("Error:", error));
+        }
+      }
+
+      function displayResult(data) {
+        var resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = "<h2>API Response:</h2>";
+        var predictions = data.predictions;
+
+        for (var i = 0; i < predictions.length; i++) {
+          resultDiv.innerHTML +=
+            "<p>Class " + i + ": " + predictions[i] + "</p>";
+        }
+      }
+    </script>
+  </body>
+</html>

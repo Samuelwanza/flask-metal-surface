@@ -31,7 +31,7 @@ def predict():
         image_file = request.files['image']
 
         # Load and preprocess the image
-        img = image.load_img(image_file, target_size=(299, 299))  # Assuming InceptionV3 input size
+        img = image.load_img(image_file, target_size=(224, 244))  # Assuming InceptionV3 input size
         img_array = image.img_to_array(img)
         img_array = np.expand_dims(img_array, axis=0)
         img_array = preprocess_input(img_array)
