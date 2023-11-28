@@ -30,9 +30,8 @@
         if (file) {
           var formData = new FormData();
           formData.append("image", file);
-          console.log(file);
 
-          fetch("https://flask-production-f45ca.up.railway.app/predict", {
+          fetch("http://localhost:5000/predict", {
             method: "POST",
             body: formData,
           })
@@ -47,12 +46,9 @@
       function displayResult(data) {
         var resultDiv = document.getElementById("result");
         resultDiv.innerHTML = "<h2>API Response:</h2>";
-        var predictions = data.predictions;
 
-        for (var i = 0; i < predictions.length; i++) {
-          resultDiv.innerHTML +=
-            "<p>Class " + i + ": " + predictions[i] + "</p>";
-        }
+        var predictedClass = data.predicted_class;
+        resultDiv.innerHTML += "<p>Predicted Class: " + predictedClass + "</p>";
       }
     </script>
   </body>
